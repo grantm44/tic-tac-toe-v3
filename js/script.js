@@ -43,40 +43,10 @@ var winner ='<div class="screen screen-win" id="finish">'+
 function Agame(){
   
   this.game = [0,0,0,0,0,0,0,0,0];
-  //this.turns = 0;
+  this.turnsRemaining = 9;
 };
 
-Agame.prototype.win = function(){
-   if(this.game[0] == this.game[1] && this.game[1] == this.game[2]){
-        winner(this.game[0]);
-    }else if(this.game[3] == this.game[4] && this.game[4] == this.game[5]){
-      winner(this.game[3]);
-    }else if(this.game[6] == this.game[7] && this.game[7] == this.game[8]){
-      winner(this.game[6]);
-    }
-    //diagonal
-    else if(this.game[0] == this.game[4] && this.game[4] == this.game[8]){
-      winner(this.game[0]);
-    }
-    else if(this.game[2] == this.game[4] && this.game[4] == this.game[6]){
-      winner(this.game[2]);
-    }
-    //vertical
-    else if(this.game[0] == this.game[3] && this.game[3] == this.game[6]){
-      winner(this.game[0]);
-    }
-    else if(this.game[1]==this.game[4]&& this.game[4]==this.game[7]){
-      winner(this.game[1]);
-    }
-    else if(this.game[2]==this.game[5]&&this.game[5]==this.game[8]){
-      winner(this.game[2]);
-    }
-    else{
-      winner(0);
-    }
-}
-
-winner = function(player){
+Agame.prototype.winner = function(player){
   $('body div').remove();
   $('body').append(winner);
   if(player == 1){
@@ -88,7 +58,51 @@ winner = function(player){
   else{
     $('#finish').addClass('screen-win-tie');
   }
+  
+  $('.button').click(function(){
+    $('body div').remove();
+    $('body').append(board);
+    startGame();
+  });
 }
+
+
+Agame.prototype.win = function(){
+   if(this.game[0] == this.game[1] && this.game[1] == this.game[2] && this.game[0] != 0){
+        this.winner(this.game[0]);
+    }
+    else if(this.game[3] == this.game[4] && this.game[4] == this.game[5] && this.game[3] != 0){
+      this.winner(this.game[3]);
+    }
+    else if(this.game[6] == this.game[7] && this.game[7] == this.game[8] && this.game[6] != 0){
+      this.winner(this.game[6]);
+    }
+    //diagonal
+    else if(this.game[0] == this.game[4] && this.game[4] == this.game[8] && this.game[0] != 0){
+      this.winner(this.game[0]);
+    }
+    else if(this.game[2] == this.game[4] && this.game[4] == this.game[6] && this.game[2] != 0){
+      this.winner(this.game[2]);
+    }
+    //vertical
+    else if(this.game[0] == this.game[3] && this.game[3] == this.game[6] && this.game[0] != 0){
+      this.winner(this.game[0]);
+    }
+    else if(this.game[1]==this.game[4]&& this.game[4]==this.game[7] && this.game[1] != 0){
+      this.winner(this.game[1]);
+    }
+    else if(this.game[2]==this.game[5]&&this.game[5]==this.game[8] && this.game[2] != 0){
+      this.winner(this.game[2]);
+    }
+    else if(this.turnsRemaining > 0){
+      return;
+    }
+    else{
+      this.winner(0);
+    }
+}
+
+
 
 $('body div').remove();
 $('body').append(start);
@@ -114,29 +128,45 @@ function startGame(){
   });
   
   var $turn = $('.players.active').attr('id');
+  //add click funtionality to tic-tac-toe board
   $('.box').click(function(){
+    //player1 turn
     if($('.players.active').attr('id') === 'player1'){
       $('#player1').removeClass('active');
       $('#player2').addClass('active');
       $(this).addClass('box-filled-1');
       $(this).off();
       thisGame.game[$(this).index()] = 1;
+      thisGame.turnsRemaining--;
       thisGame.win();
       
-    }
+    }//player2 turn
     else{
       $('#player2').removeClass('active');
       $('#player1').addClass('active');
       $(this).addClass('box-filled-2');
       $(this).off();
       thisGame.game[$(this).index()] = 2;
+      thisGame.turnsRemaining--;
       thisGame.win();
 
     }
   });
 }
 
-
+/*function winner(player){
+  $('body div').remove();
+  $('body').append(winner);
+  if(player == 1){
+    $('#finish').addClass('screen-win-one');
+  }
+  else if(player==2){
+    $('#finish').addClass('screen-win-two');
+  }
+  else{
+    $('#finish').addClass('screen-win-tie');
+  }
+}*/
 
 /*function win(){
     //horizontal

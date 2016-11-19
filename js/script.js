@@ -127,7 +127,6 @@ function startGame(){
     $(this).css('background-image', '');
   });
   
-  var $turn = $('.players.active').attr('id');
   //add click funtionality to tic-tac-toe board
   $('.box').click(function(){
     //player1 turn
@@ -153,63 +152,5 @@ function startGame(){
     }
   });
 }
-
-/*function winner(player){
-  $('body div').remove();
-  $('body').append(winner);
-  if(player == 1){
-    $('#finish').addClass('screen-win-one');
-  }
-  else if(player==2){
-    $('#finish').addClass('screen-win-two');
-  }
-  else{
-    $('#finish').addClass('screen-win-tie');
-  }
-}*/
-
-/*function win(){
-    //horizontal
-    if(game[0] == game[1] && game[1] == game[2]){
-        winner(game[0]);
-    }
-    if(game[3] == game[4] && game[4] == game[5]){
-      winner(game[3]);
-    }
-    if(game[6] == game[7] && game[7] == game[8]){
-      winner(game[6]);
-    }
-    //diaganal
-    if(game[0] == game[4] && game[4] == game[8]){
-      winner(game[0]);
-    }
-    if(game[2] == game[4] && game[4] == game[6]){
-      winner(game[2]);
-    }
-    //vertical
-    if(game[0] == game[3] && game[3] == game[6]){
-      winner(game[0]);
-    }
-    if(game[1]==game[4]&& game[4]==game[7]){
-      winner(game[1]);
-    }
-    if(game[2]==game[5]&&game[5]==game[8]){
-      winner(game[2]);
-    }
-}
-
-function winner(player){
-  $('body div').remove();
-  $('body').append(winner);
-  if(player == 1){
-    $('#finish').addClass('screen-win-one');
-  }
-  else if(player==2){
-    $('#finish').addClass('screen-win-two');
-  }
-  else{
-    $('#finish').addClass('screen-win-tie');
-  }
-}*/
 
 })();

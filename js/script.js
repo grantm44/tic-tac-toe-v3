@@ -30,7 +30,65 @@ var board = '<div class="board" id="board">'+
 			          '<li class="box"></li>'+
 			        '</ul>'+
 			      '</div> ';
+var winner ='<div class="screen screen-win" id="finish">'+
+              '<header>'+
+                '<h1>Tic Tac Toe</h1>'+
+                '<p class="message"></p>'+
+                '<a href="#" class="button">New game</a>'+
+              '</header>'+
+            '</div>';
+
+
  
+function Agame(){
+  
+  this.game = [0,0,0,0,0,0,0,0,0];
+  //this.turns = 0;
+};
+
+Agame.prototype.win = function(){
+   if(this.game[0] == this.game[1] && this.game[1] == this.game[2]){
+        winner(this.game[0]);
+    }else if(this.game[3] == this.game[4] && this.game[4] == this.game[5]){
+      winner(this.game[3]);
+    }else if(this.game[6] == this.game[7] && this.game[7] == this.game[8]){
+      winner(this.game[6]);
+    }
+    //diagonal
+    else if(this.game[0] == this.game[4] && this.game[4] == this.game[8]){
+      winner(this.game[0]);
+    }
+    else if(this.game[2] == this.game[4] && this.game[4] == this.game[6]){
+      winner(this.game[2]);
+    }
+    //vertical
+    else if(this.game[0] == this.game[3] && this.game[3] == this.game[6]){
+      winner(this.game[0]);
+    }
+    else if(this.game[1]==this.game[4]&& this.game[4]==this.game[7]){
+      winner(this.game[1]);
+    }
+    else if(this.game[2]==this.game[5]&&this.game[5]==this.game[8]){
+      winner(this.game[2]);
+    }
+    else{
+      winner(0);
+    }
+}
+
+winner = function(player){
+  $('body div').remove();
+  $('body').append(winner);
+  if(player == 1){
+    $('#finish').addClass('screen-win-one');
+  }
+  else if(player==2){
+    $('#finish').addClass('screen-win-two');
+  }
+  else{
+    $('#finish').addClass('screen-win-tie');
+  }
+}
 
 $('body div').remove();
 $('body').append(start);
@@ -43,7 +101,7 @@ $('.button').click(function(){
 
 function startGame(){
   $('#player2').addClass('active');
-  
+  var thisGame = new Agame();
   $('.boxes li').hover(function(){
     if($('.players.active').attr('id') === 'player1'){
       $(this).css('background-image', 'url(img/o.svg)');
@@ -62,14 +120,66 @@ function startGame(){
       $('#player2').addClass('active');
       $(this).addClass('box-filled-1');
       $(this).off();
+      thisGame.game[$(this).index()] = 1;
+      thisGame.win();
+      
     }
     else{
       $('#player2').removeClass('active');
       $('#player1').addClass('active');
       $(this).addClass('box-filled-2');
       $(this).off();
+      thisGame.game[$(this).index()] = 2;
+      thisGame.win();
+
     }
   });
 }
+
+
+
+/*function win(){
+    //horizontal
+    if(game[0] == game[1] && game[1] == game[2]){
+        winner(game[0]);
+    }
+    if(game[3] == game[4] && game[4] == game[5]){
+      winner(game[3]);
+    }
+    if(game[6] == game[7] && game[7] == game[8]){
+      winner(game[6]);
+    }
+    //diaganal
+    if(game[0] == game[4] && game[4] == game[8]){
+      winner(game[0]);
+    }
+    if(game[2] == game[4] && game[4] == game[6]){
+      winner(game[2]);
+    }
+    //vertical
+    if(game[0] == game[3] && game[3] == game[6]){
+      winner(game[0]);
+    }
+    if(game[1]==game[4]&& game[4]==game[7]){
+      winner(game[1]);
+    }
+    if(game[2]==game[5]&&game[5]==game[8]){
+      winner(game[2]);
+    }
+}
+
+function winner(player){
+  $('body div').remove();
+  $('body').append(winner);
+  if(player == 1){
+    $('#finish').addClass('screen-win-one');
+  }
+  else if(player==2){
+    $('#finish').addClass('screen-win-two');
+  }
+  else{
+    $('#finish').addClass('screen-win-tie');
+  }
+}*/
 
 })();

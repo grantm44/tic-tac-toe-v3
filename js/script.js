@@ -44,54 +44,58 @@ function Agame(){
   
   this.game = [0,0,0,0,0,0,0,0,0];
   this.turnsRemaining = 9;
-};
+}
 
 Agame.prototype.winner = function(player){
   $('body div').remove();
   $('body').append(winner);
   if(player == 1){
     $('#finish').addClass('screen-win-one');
+    $('.message').text('Winner');
   }
   else if(player==2){
     $('#finish').addClass('screen-win-two');
+    $('.message').text('Winner');
   }
   else{
     $('#finish').addClass('screen-win-tie');
+    $('.message').text("It's a Tie!");
   }
+
   
   $('.button').click(function(){
     $('body div').remove();
     $('body').append(board);
     startGame();
   });
-}
+};
 
 
 Agame.prototype.win = function(){
-   if(this.game[0] == this.game[1] && this.game[1] == this.game[2] && this.game[0] != 0){
+   if(this.game[0] == this.game[1] && this.game[1] == this.game[2] && this.game[0] !== 0){
         this.winner(this.game[0]);
     }
-    else if(this.game[3] == this.game[4] && this.game[4] == this.game[5] && this.game[3] != 0){
+    else if(this.game[3] == this.game[4] && this.game[4] == this.game[5] && this.game[3] !== 0){
       this.winner(this.game[3]);
     }
-    else if(this.game[6] == this.game[7] && this.game[7] == this.game[8] && this.game[6] != 0){
+    else if(this.game[6] == this.game[7] && this.game[7] == this.game[8] && this.game[6] !== 0){
       this.winner(this.game[6]);
     }
     //diagonal
-    else if(this.game[0] == this.game[4] && this.game[4] == this.game[8] && this.game[0] != 0){
+    else if(this.game[0] == this.game[4] && this.game[4] == this.game[8] && this.game[0] !== 0){
       this.winner(this.game[0]);
     }
-    else if(this.game[2] == this.game[4] && this.game[4] == this.game[6] && this.game[2] != 0){
+    else if(this.game[2] == this.game[4] && this.game[4] == this.game[6] && this.game[2] !== 0){
       this.winner(this.game[2]);
     }
     //vertical
-    else if(this.game[0] == this.game[3] && this.game[3] == this.game[6] && this.game[0] != 0){
+    else if(this.game[0] == this.game[3] && this.game[3] == this.game[6] && this.game[0] !==0){
       this.winner(this.game[0]);
     }
-    else if(this.game[1]==this.game[4]&& this.game[4]==this.game[7] && this.game[1] != 0){
+    else if(this.game[1]==this.game[4]&& this.game[4]==this.game[7] && this.game[1] !== 0){
       this.winner(this.game[1]);
     }
-    else if(this.game[2]==this.game[5]&&this.game[5]==this.game[8] && this.game[2] != 0){
+    else if(this.game[2]==this.game[5]&&this.game[5]==this.game[8] && this.game[2] !== 0){
       this.winner(this.game[2]);
     }
     else if(this.turnsRemaining > 0){
@@ -100,7 +104,7 @@ Agame.prototype.win = function(){
     else{
       this.winner(0);
     }
-}
+};
 
 
 

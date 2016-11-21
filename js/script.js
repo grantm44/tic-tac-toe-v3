@@ -42,10 +42,11 @@ var winner ='<div class="screen screen-win" id="finish">'+
  
 function Agame(){
   
-  this.game = [0,0,0,0,0,0,0,0,0];
+  this.game = [0,0,0,0,0,0,0,0,0];//represents each square
   this.turnsRemaining = 9;
 }
 
+//insert javascript for winning player screen
 Agame.prototype.winner = function(player){
   $('body div').remove();
   $('body').append(winner);
@@ -70,7 +71,7 @@ Agame.prototype.winner = function(player){
   });
 };
 
-
+//check each win combination and tie 
 Agame.prototype.win = function(){
    if(this.game[0] == this.game[1] && this.game[1] == this.game[2] && this.game[0] !== 0){
         this.winner(this.game[0]);
@@ -107,16 +108,18 @@ Agame.prototype.win = function(){
 };
 
 
-
+//append html for start screen
 $('body div').remove();
 $('body').append(start);
-
+//event handler - start game when button is clicked
 $('.button').click(function(){
 	$('body div').remove();
   $('body').append(board);
   startGame();
 });
 
+//this function will start by setting player 'X' to move first
+//initialize a game object and the funcitonality for each square
 function startGame(){
   $('#player2').addClass('active');
   var thisGame = new Agame();
@@ -135,17 +138,17 @@ function startGame(){
   $('.box').click(function(){
     //player1 turn
     if($('.players.active').attr('id') === 'player1'){
-      $('#player1').removeClass('active');
+      $('#player1').removeClass('active'); //class to signify a players turn
       $('#player2').addClass('active');
-      $(this).addClass('box-filled-1');
-      $(this).off();
-      thisGame.game[$(this).index()] = 1;
+      $(this).addClass('box-filled-1'); //addclass to represent clicked box
+      $(this).off();  //disable all events for that box
+      thisGame.game[$(this).index()] = 1; //puts a 1 into the game array for position of selected square
       thisGame.turnsRemaining--;
       thisGame.win();
       
     }//player2 turn
     else{
-      $('#player2').removeClass('active');
+      $('#player2').removeClass('active'); //same as above except for player2
       $('#player1').addClass('active');
       $(this).addClass('box-filled-2');
       $(this).off();
